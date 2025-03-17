@@ -79,6 +79,9 @@ namespace POS點餐系統
 
         }
 
-
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            order.CalculateDiscount(comboBox1.Text);
+        }
     }
 }

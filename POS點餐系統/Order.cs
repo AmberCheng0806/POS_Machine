@@ -19,18 +19,23 @@ namespace POS點餐系統
                 {
                     items.Add(item);
                 }
-                DisCount.DisCountOrder(discountType, items);
+                CalculateDiscount(discountType);
                 return;
             }
 
             if (item.Number == 0)
             {
                 items.Remove(product);
-                DisCount.DisCountOrder(discountType, items);
+                CalculateDiscount(discountType);
                 return;
             }
 
             product.Number = item.Number;
+            CalculateDiscount(discountType);
+        }
+
+        public void CalculateDiscount(string discountType)
+        {
             DisCount.DisCountOrder(discountType, items);
         }
 

@@ -12,7 +12,7 @@ namespace POS點餐系統
         public static void DisCountOrder(string discountType, List<Item> items)
         {
 
-            items.RemoveAll(x => x.Name.Contains("贈送"));
+            items.RemoveAll(x => x.Name.Contains("贈送") || x.Name.Contains("折抵"));
             items.ForEach(x => x.Discount = 0);
             //雞腿飯買二送一
             //排骨飯三個200元
@@ -84,6 +84,10 @@ namespace POS點餐系統
         {
 
             Item item = FindItemInList(name, items);
+            if (item == null)
+            {
+                return;
+            }
             int set = item.Number / mixNum;
             if (set == 0)
             {
@@ -128,7 +132,15 @@ namespace POS點餐系統
             if (item != null)
             {
                 int set = item.Number / number;
-                item.Discount = set * (item.Price * number - salePrice);
+                if (set == 0)
+                {
+                    return;
+                }
+                string discountName = "折抵";
+                int discount = (item.Price * number - salePrice) * (-1);
+                items.Add(new Item(discountName, discount, set));
+
+                //item.Discount = set * (item.Price * number - salePrice);
             }
         }
 
@@ -183,7 +195,12 @@ namespace POS點餐系統
             if (item1 != null && item2 != null)
             {
                 int set = Math.Min(item1.Number, item2.Number);
-                item2.Discount = set * (item1.Price + item2.Price - salePrice);
+                string discountName = "折抵";
+                int discount = (item1.Price + item2.Price - salePrice) * (-1);
+                items.Add(new Item(discountName, discount, set));
+
+
+                //item2.Discount = set * (item1.Price + item2.Price - salePrice);
             }
         }
 
@@ -224,12 +241,20 @@ namespace POS點餐系統
         /// <param name="items"></param>
         /// <param name="threshold"></param>
         /// <param name="discount"></param>
-        private static void DiscountForTotalPrice(List<Item> items, int threshold, int discount)
+        private static void DiscountForTotalPrice(List<Item> items, int threshold, int discountPrice)
         {
             int total = GetTotalMoney(items);
             int set = total / threshold;
-            items.ForEach(x => x.Discount = 0);
-            items.Last().Discount = set * discount;
+            if (set == 0)
+            {
+                return;
+            }
+            string discountName = "折抵";
+            int discount = discountPrice * (-1);
+            items.Add(new Item(discountName, discount, set));
+
+
+            //items.Last().Discount = set * discountPrice;
         }
 
         /// <summary>
