@@ -29,19 +29,21 @@ namespace POS點餐系統
                 DisCount.DisCountOrder(discountType, items);
                 return;
             }
+
             product.Number = item.Number;
             DisCount.DisCountOrder(discountType, items);
-
         }
 
         public int GetTotalMoney()
         {
-            int sum = 0;
-            foreach (Item item in items)
-            {
-                sum += item.TotalPrice;
-            }
-            return sum;
+            //int sum = 0;
+            //foreach (Item item in items)
+            //{
+            //    sum += item.TotalPrice;
+            //}
+            //return sum;
+
+            return DisCount.GetTotalMoney(items);
         }
 
         //public FlowLayoutPanel GetOrderDetail()

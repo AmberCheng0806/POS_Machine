@@ -11,7 +11,8 @@ namespace POS點餐系統
         public string Name { get; set; }
         public int Price { get; set; }
         public int Number { get; set; }
-        public int TotalPrice { get { return Price * Number; } }
+        public int Discount { get; set; }
+        public int TotalPrice { get { return Price * Number - Discount; } }
 
         public Item(string name, int price, int num)
         {

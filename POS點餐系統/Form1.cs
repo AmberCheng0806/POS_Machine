@@ -78,5 +78,7 @@ namespace POS點餐系統
             //panel2.Controls.Add(order.GetOrderDetail());
 
         }
+
+
     }
 }
