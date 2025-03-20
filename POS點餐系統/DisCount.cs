@@ -1,4 +1,5 @@
-﻿using System;
+﻿using POS點餐系統.促銷活動;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,6 +15,15 @@ namespace POS點餐系統
 
             items.RemoveAll(x => x.Name.Contains("贈送") || x.Name.Contains("折抵"));
             items.ForEach(x => x.Discount = 0);
+
+            //ADisCount aDisCount = DiscountFactory.SelectDiscount(discountType, items);
+
+            Type type = Type.GetType($"POS點餐系統.促銷活動.{discountType}");
+            ADisCount aDisCount = (ADisCount)Activator.CreateInstance(type, new object[] { items });
+            aDisCount.Discount();
+
+
+
             //雞腿飯買二送一
             //排骨飯三個200元
             //咖哩飯搭紅茶80元
@@ -25,42 +35,42 @@ namespace POS點餐系統
             //雞腿飯搭配巴斯克打九折
             //全場消費滿300元折扣50元
             //全場消費滿400元打8折
-            switch (discountType)
-            {
-                case "雞腿飯買二送一":
-                    GetFreeForSingleItem("雞腿飯", "雞腿飯", items, 2, 1);
-                    break;
-                case "排骨飯三個200元":
-                    SalePriceForSingleItem("排骨飯", items, 3, 200);
-                    break;
-                case "咖哩飯搭紅茶80元":
-                    SalePriceForPairingItems("咖哩飯", "紅茶", items, 80);
-                    break;
-                case "啤酒三瓶60":
-                    SalePriceForSingleItem("啤酒", items, 3, 60);
-                    break;
-                case "滷肉飯搭布丁100元":
-                    SalePriceForPairingItems("滷肉飯", "布丁", items, 100);
-                    break;
-                case "炒飯搭配紅茶就送千層":
-                    GetFreeForPairingItems("炒飯", "紅茶", "千層", items);
-                    break;
-                case "咖哩飯滿兩個就送5個可頌":
-                    GetFreeForSingleItem("咖哩飯", "可頌", items, 2, 5);
-                    break;
-                case "排骨飯滿三個打85折":
-                    PercentageSalePriceForSingleItem("排骨飯", items, 3, 0.85);
-                    break;
-                case "雞腿飯搭配巴斯克打九折":
-                    PercentageSalePriceForPairingItems("雞腿飯", "巴斯克", items, 0.9);
-                    break;
-                case "全場消費滿300元折扣50元":
-                    DiscountForTotalPrice(items, 300, 50);
-                    break;
-                case "全場消費滿400元打8折":
-                    PercentageDiscountForTotalPrice(items, 400, 0.8);
-                    break;
-            }
+            //switch (discountType)
+            //{
+            //    case "雞腿飯買二送一":
+            //        GetFreeForSingleItem("雞腿飯", "雞腿飯", items, 2, 1);
+            //        break;
+            //    case "排骨飯三個200元":
+            //        SalePriceForSingleItem("排骨飯", items, 3, 200);
+            //        break;
+            //    case "咖哩飯搭紅茶80元":
+            //        SalePriceForPairingItems("咖哩飯", "紅茶", items, 80);
+            //        break;
+            //    case "啤酒三瓶60":
+            //        SalePriceForSingleItem("啤酒", items, 3, 60);
+            //        break;
+            //    case "滷肉飯搭布丁100元":
+            //        SalePriceForPairingItems("滷肉飯", "布丁", items, 100);
+            //        break;
+            //    case "炒飯搭配紅茶就送千層":
+            //        GetFreeForPairingItems("炒飯", "紅茶", "千層", items);
+            //        break;
+            //    case "咖哩飯滿兩個就送5個可頌":
+            //        GetFreeForSingleItem("咖哩飯", "可頌", items, 2, 5);
+            //        break;
+            //    case "排骨飯滿三個打85折":
+            //        PercentageSalePriceForSingleItem("排骨飯", items, 3, 0.85);
+            //        break;
+            //    case "雞腿飯搭配巴斯克打九折":
+            //        PercentageSalePriceForPairingItems("雞腿飯", "巴斯克", items, 0.9);
+            //        break;
+            //    case "全場消費滿300元折扣50元":
+            //        DiscountForTotalPrice(items, 300, 50);
+            //        break;
+            //    case "全場消費滿400元打8折":
+            //        PercentageDiscountForTotalPrice(items, 400, 0.8);
+            //        break;
+            //}
 
             ShowPanel showPanel = new ShowPanel();
             showPanel.CreateTXPanel(items);

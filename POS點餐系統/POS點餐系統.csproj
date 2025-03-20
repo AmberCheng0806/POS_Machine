@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DisCount.cs" />
+    <Compile Include="DiscountFactory.cs" />
     <Compile Include="Extension.cs" />
     <Compile Include="FlowLayoutPanelEvent.cs" />
     <Compile Include="FlowLayoutPanelExtension.cs" />
@@ -61,6 +62,18 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ShowPanel.cs" />
+    <Compile Include="促銷活動\ADisCount.cs" />
+    <Compile Include="促銷活動\全場消費滿300元折扣50元.cs" />
+    <Compile Include="促銷活動\全場消費滿400元打8折.cs" />
+    <Compile Include="促銷活動\咖哩飯搭紅茶80元.cs" />
+    <Compile Include="促銷活動\咖哩飯滿兩個就送5個可頌.cs" />
+    <Compile Include="促銷活動\啤酒三瓶60.cs" />
+    <Compile Include="促銷活動\排骨飯三個200元.cs" />
+    <Compile Include="促銷活動\排骨飯滿三個打85折.cs" />
+    <Compile Include="促銷活動\滷肉飯搭布丁100元.cs" />
+    <Compile Include="促銷活動\炒飯搭配紅茶就送千層.cs" />
+    <Compile Include="促銷活動\雞腿飯搭配巴斯克打九折.cs" />
+    <Compile Include="促銷活動\雞腿飯買二送一.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -86,5 +99,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
